@@ -34,10 +34,19 @@ def load_labels(filename):
         return np.frombuffer(all_labels, dtype=np.uint8).reshape(-1, 1)
 
 
+# One hot encodes the y training data.
+# Turns the data on the left to the matrix on the right for each label.
+# 2 - [0, 0, 1]
+# 0 - [1, 0, 0]
+# 1 - [0, 1, 0]
 def one_hot_encode(y):
+    # Get the number of labels (examples)
     n_labels = y.shape[0]
+    # Set the number of classes
     n_classes = 10
+    # Create a matrix with n_labels rows and n_classes cols.
     encoded_y = np.zeros((n_labels, n_classes))
+    # For each row put a one where the label for this row is.
     for i in range(n_labels):
         label = y[i]
         encoded_y[i][label] = 1
